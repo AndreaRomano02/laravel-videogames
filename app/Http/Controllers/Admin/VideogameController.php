@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Videogame;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class VideogameController extends Controller
 {
@@ -22,7 +24,7 @@ class VideogameController extends Controller
    */
   public function create()
   {
-    //
+    return view('admin.videogames.create');
   }
 
   /**
@@ -30,7 +32,16 @@ class VideogameController extends Controller
    */
   public function store(Request $request)
   {
-    //
+    $data = $request->all();
+
+    $videogame = new Videogame();
+
+    $videogame->fill($data);
+
+    $videogame->slug = Str::slug($videogame->name, '-');
+
+    $videogame->save();
+    return to_route('admin.videogames.show', compact('videogame'))->with('alert-type', 'success')->with('alert-message', 'Videogame aggiunto con successo');;
   }
 
   /**
