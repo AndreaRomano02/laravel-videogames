@@ -1,12 +1,18 @@
-const forms = document.querySelectorAll(".delete-form");
+const deleteForm = document.querySelectorAll('.delete-form');
+const modalBody = document.querySelector('.modal-body');
+const deleteButton = document.getElementById('deleteButton');
 
-forms.forEach(form => {
-
-    form.addEventListener("submit", (e) => {
+deleteForm.forEach(form => {
+    form.addEventListener('submit', e => {
         e.preventDefault();
-        const title = form.dataset.title;
-        const proceed = confirm(`Do you really want to delete "${title}"?`);
+        const name = form.dataset.name;
 
-        if (proceed) form.submit();
-    });
+
+
+        modalBody.innerText = `Sei sicuro di voler eliminare ${name}`
+
+        deleteButton.addEventListener("click", function () {
+            form.submit();
+        });
+    })
 })
