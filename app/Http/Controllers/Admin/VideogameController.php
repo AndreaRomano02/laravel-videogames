@@ -80,7 +80,7 @@ class VideogameController extends Controller
    */
   public function edit(Videogame $videogame)
   {
-    return view('admin.videogames.edit', compact('videogame'));
+    return view('admin.videogames.edit', compact('videogame'))->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
   }
 
   /**
@@ -117,12 +117,11 @@ class VideogameController extends Controller
    */
   public function destroy(Videogame $videogame)
   {
-    $videogameName = $videogame->name;
     $videogame->delete();
 
     return to_route('admin.videogames.index')
       ->with('alert-type', 'success')
-      ->with('alert-message', "$videogameName successfully deleted");
+      ->with('alert-message', "videogame successfully tasfered in trash");
   }
 
   public function trash()
@@ -136,7 +135,8 @@ class VideogameController extends Controller
     $videogame = Videogame::onlyTrashed()->findOrFail($id);
     $videogame->restore();
 
-    return to_route('admin.videogames.trash');
+    return to_route('admin.videogames.trash')->with('alert-type', 'success')
+      ->with('alert-message', "videogame successfully restored");;
   }
 
   public function drop(String $id)
@@ -144,13 +144,13 @@ class VideogameController extends Controller
     $videogame = Videogame::onlyTrashed()->findOrFail($id);
     $videogame->forceDelete();
 
-    return to_route('admin.videogames.trash');
+    return to_route('admin.videogames.trash')->with('alert-message', "Videogame dropped successfully")->with('alert-type', 'success');
   }
 
   public function dropAll()
   {
     Videogame::onlyTrashed()->forceDelete();
 
-    return to_route('admin.videogames.trash');
+    return to_route('admin.videogames.trash')->with('alert-message', "Clear trash")->with('alert-type', 'success');
   }
 }
