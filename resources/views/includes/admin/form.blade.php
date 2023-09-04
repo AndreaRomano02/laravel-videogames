@@ -1,10 +1,10 @@
 @if ($videogame->exists)
     <h1 class="text-center mt-5">Edit videogame: {{ $videogame->title }}</h1>
     <form method="POST" action="{{ route('admin.videogames.update', $videogame) }}"
-        class="text-white bg-dark p-5 rounded mt-5">
+        class="text-white bg-dark p-5 rounded mt-5" novalidate>
         @method('PUT')
     @else
-        <form method="POST" action="{{ route('admin.videogames.store') }}" class="text-white bg-dark p-5 rounded mt-5">
+        <form method="POST" action="{{ route('admin.videogames.store') }}" class="text-white bg-dark p-5 rounded mt-5" novalidate>
 @endif
 @csrf
 
@@ -17,11 +17,9 @@
             class="form-control @error('title') is-invalid @enderror" id="title" aria-describedby="titleHelp"
             name="title" required>
         <div class="form-text">Required</div>
-        @error('title')
             <div class="invalid-feedback">
-                {{ $message }}
+              {{ $errors->first('title') }}
             </div>
-        @enderror
     </div>
 
     {{-- # Slug --}}
@@ -38,11 +36,9 @@
         <label for="description" class="form-label">Description</label>
         <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"
             rows="10">{{ old('description', $videogame->description) }}</textarea>
-        @error('description')
             <div class="invalid-feedback">
-                {{ $message }}
+              {{ $errors->first('description') }}
             </div>
-        @enderror
     </div>
 
     {{-- # Image --}}
@@ -50,11 +46,9 @@
         <label for="image" class="form-label">Url dell'immagine</label>
         <input type="url"class="form-control @error('image') is-invalid @enderror" id="image" name="image"
             value="{{ old('image', $videogame->image) }}" placeholder="Insersisci un url valido">
-        @error('image')
             <div class="invalid-feedback">
-                {{ $message }}
+              {{ $errors->first('image') }}
             </div>
-        @enderror
     </div>
 
     {{-- # Image preview --}}
@@ -70,11 +64,9 @@
             class="form-control @error('price') is-invalid @enderror" id="price" aria-describedby="priceHelp"
             name="price" required>
         <div class="form-text">Required</div>
-        @error('price')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-        @enderror
+        <div class="invalid-feedback">
+          {{ $errors->first('price') }}
+        </div>
     </div>
 
     {{-- # Explicit Content --}}

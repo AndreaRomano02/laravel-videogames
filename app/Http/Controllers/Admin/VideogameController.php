@@ -41,7 +41,6 @@ class VideogameController extends Controller
         'title' => 'required|string|max:100|unique:videogames',
         'image' => 'nullable|url',
         'description' => 'required|string',
-        'price' => 'nullable|int'
       ],
       [
         'title.required' => 'Il titolo è obbligatorio',
@@ -49,7 +48,6 @@ class VideogameController extends Controller
         'title.unique' => "Esiste già un videogame dal titolo '$request->title'",
         'description.required' => "La descrizione è obbligatoria",
         'image.url' => "L'url inserito non è valido",
-        'price.int' => "il prezzo deve essere un numero",
       ]
     );
 
@@ -92,16 +90,16 @@ class VideogameController extends Controller
   {
     $request->validate(
       [
-        'title' => ['required', 'string', 'max:100', Rule::unique('videogame')->ignore($videogame)],
+        'title' => ['required', 'string', 'max:100', Rule::unique('videogames', 'title')->ignore($videogame)],
         'image' => 'nullable|url',
-        'description' => 'required|string'
+        'description' => 'required|string',
       ],
       [
         'title.required' => 'Il titolo è obbligatorio',
         'title.max' => 'il titolo deve essere massimo :max caratteri',
         'title.unique' => "Esiste già un videogame dal titolo $request->title",
         'description.required' => "La descrizione è obbligatoria",
-        'image.url' => "L'url inserito non è valido"
+        'image.url' => "L'url inserito non è valido",
       ]
     );
 
