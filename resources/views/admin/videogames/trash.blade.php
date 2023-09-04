@@ -7,6 +7,14 @@
     {{-- Header--}}
     <header>
         <h1>Cestino</h1>
+
+        <form action="{{route('admin.videogames.dropAll')}}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-danger">
+                Svuota cestino
+            </button>
+        </form>
     </header>
 
     {{-- Content--}}

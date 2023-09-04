@@ -110,4 +110,11 @@ class VideogameController extends Controller
 
     return to_route('admin.videogames.trash');
   }
+
+  public function dropAll()
+  {
+    Videogame::onlyTrashed()->forceDelete();
+
+    return to_route('admin.videogames.trash');
+  }
 }
