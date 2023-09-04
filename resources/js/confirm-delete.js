@@ -1,9 +1,12 @@
-const deleteForm = document.getElementById("delete-form");
-const videogameTitle = document.getElementById("videogame-title").innerText;
+const forms = document.querySelectorAll(".delete-form");
 
-deleteForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const proceed = confirm(`Do you really want to delete ${videogameTitle}?`);
+forms.forEach(form => {
 
-    if (proceed) deleteForm.submit();
-});
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = form.dataset.title;
+        const proceed = confirm(`Do you really want to delete "${title}"?`);
+
+        if (proceed) form.submit();
+    });
+})

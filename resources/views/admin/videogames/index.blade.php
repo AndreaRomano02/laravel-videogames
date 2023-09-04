@@ -43,7 +43,7 @@
                         </a>
 
                         {{-- # Elimina --}}
-                        <form action="{{ route('admin.videogames.destroy', $videogame) }}" method="POST" id="delete-form">
+                        <form action="{{ route('admin.videogames.destroy', $videogame) }}" method="POST" class="delete-form" data-title="{{ $videogame->title }}">
                             @csrf
                             @method('DELETE')
 
