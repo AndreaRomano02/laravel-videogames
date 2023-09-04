@@ -88,4 +88,10 @@ class VideogameController extends Controller
       ->with('alert-type', 'success')
       ->with('alert-message', "$videogameName successfully deleted");
   }
+
+  public function trash()
+  {
+    $videogames = Videogame::onlyTrashed()->get();
+    return view('admin.videogames.trash', compact('videogames'));
+  }
 }
