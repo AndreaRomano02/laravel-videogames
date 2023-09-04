@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Videogame;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class VideogameController extends Controller
 {
@@ -38,7 +39,7 @@ class VideogameController extends Controller
    */
   public function show(Videogame $videogame)
   {
-    //
+    return view('admin.videogames.show', compact('videogame'));
   }
 
   /**
@@ -46,7 +47,7 @@ class VideogameController extends Controller
    */
   public function edit(Videogame $videogame)
   {
-    //
+    return view('admin.videogames.edit', compact('videogame'));
   }
 
   /**
@@ -54,7 +55,11 @@ class VideogameController extends Controller
    */
   public function update(Request $request, Videogame $videogame)
   {
-    //
+    $data = $request->all();
+    $data['slug'] = Str::slug($data['title'], '-');
+    $videogame->update($data);
+
+    return to_route('admin.videogames.show', $videogame)->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
   }
 
   /**
