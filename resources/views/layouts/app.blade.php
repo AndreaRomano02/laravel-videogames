@@ -22,11 +22,13 @@
 </head>
 
 <body>
+
     <div id="app">
 
         @include('includes.layout.navbar')
 
         <main class="@yield('content-class', 'container')">
+            @include('includes.layout.alert')
             @yield('content')
         </main>
     </div>
