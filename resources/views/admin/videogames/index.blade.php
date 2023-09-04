@@ -43,11 +43,11 @@
                         </a>
 
                         {{-- # Elimina --}}
-                        <form action="{{ route('admin.videogames.destroy', $videogame) }}" method="POST">
+                        <form action="{{ route('admin.videogames.destroy', $videogame) }}" method="POST" class="delete-form" data-title="{{ $videogame->title }}">
                             @csrf
                             @method('DELETE')
 
-                            <button class="btn btn-danger">
+                            <button type="submit" class="btn btn-danger">
                                 <i class="fas fa-trash me-2"></i>
                                 Elimina
                             </button>
@@ -57,4 +57,10 @@
             </div>
         @endforeach
     </div>
+@endsection
+
+@section('scripts')
+
+@vite('resources/js/confirm-delete.js')
+
 @endsection
