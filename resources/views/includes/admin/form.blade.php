@@ -38,6 +38,11 @@
         <label for="description" class="form-label">Description</label>
         <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"
             rows="10">{{ old('description', $videogame->description) }}</textarea>
+        @error('description')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
     </div>
 
     {{-- # Image --}}
@@ -80,9 +85,9 @@
     </div>
 
     <div class="d-flex align-items-center justify-content-between ">
-      <a class="btn btn-secondary" href="{{route('admin.videogames.index')}}">Go back</a>
-      {{-- # Submit --}}
-      <button type="submit" class="btn btn-success">Submit</button>
+        <a class="btn btn-secondary" href="{{ route('admin.videogames.index') }}">Go back</a>
+        {{-- # Submit --}}
+        <button type="submit" class="btn btn-success">Submit</button>
     </div>
-  </div>
+</div>
 </form>

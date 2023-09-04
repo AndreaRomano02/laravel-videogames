@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Videogame;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+
+
 
 class VideogameController extends Controller
 {
@@ -32,6 +35,26 @@ class VideogameController extends Controller
    */
   public function store(Request $request)
   {
+
+    $request->validate(
+      [
+        'title' => 'required|string|max:100|unique:videogames',
+        'image' => 'nullable|url',
+        'description' => 'required|string',
+        'price' => 'nullable|int'
+      ],
+      [
+        'title.required' => 'Il titolo è obbligatorio',
+        'title.max' => 'il titolo deve essere massimo :max caratteri',
+        'title.unique' => "Esiste già un videogame dal titolo '$request->title'",
+        'description.required' => "La descrizione è obbligatoria",
+        'image.url' => "L'url inserito non è valido",
+        'price.int' => "il prezzo deve essere un numero",
+      ]
+    );
+
+
+
     $data = $request->all();
     $data['is_explicit'] = $data['is_explicit'] ?? 0;
     $data['slug'] = Str::slug($data['title'], '-');
@@ -67,6 +90,21 @@ class VideogameController extends Controller
    */
   public function update(Request $request, Videogame $videogame)
   {
+    $request->validate(
+      [
+        'title' => ['required', 'string', 'max:100', Rule::unique('videogame')->ignore($videogame)],
+        'image' => 'nullable|url',
+        'description' => 'required|string'
+      ],
+      [
+        'title.required' => 'Il titolo è obbligatorio',
+        'title.max' => 'il titolo deve essere massimo :max caratteri',
+        'title.unique' => "Esiste già un videogame dal titolo $request->title",
+        'description.required' => "La descrizione è obbligatoria",
+        'image.url' => "L'url inserito non è valido"
+      ]
+    );
+
     $data = $request->all();
     $data['is_explicit'] = $data['is_explicit'] ?? 0;
 
