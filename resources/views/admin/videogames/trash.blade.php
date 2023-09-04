@@ -12,7 +12,17 @@
     {{-- Content--}}
     <ul>
         @foreach ($videogames as $videogame)
-            <li>{{$videogame->title}}</li>
+            <li>
+                {{$videogame->title}}
+                <form action="{{route('admin.videogames.restore', $videogame)}}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <button class="btn btn-success">
+                        Restore
+                    </button>
+                </form>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </li>
         @endforeach
     </ul>
 
