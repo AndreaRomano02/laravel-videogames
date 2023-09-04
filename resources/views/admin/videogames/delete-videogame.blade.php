@@ -1,13 +1,13 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal-{{ $videogame->id }}">
+{{-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal-{{ $videogame->id }}">
     <i class="fa-solid fa-trash-can"></i>
     @unless ($compact)
         <span class="ms-2">Elimina</span>
         @endif
-    </button>
+    </button> --}}
 
     <!-- Modal -->
-    <div class="modal fade" id="delete-modal-{{ $videogame->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{-- <div class="modal fade" id="delete-modal-{{ $videogame->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -18,10 +18,10 @@
                 <div class="modal-body">
                     Sei sicuro di voler eliminare {{ $videogame->name }} creato il {{ $videogame->created_at }}
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div class="modal-footer"> --}}
+                    {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> --}}
                     {{-- DELETE FORM --}}
-                    <form action="{{ route('admin.videogames.destroy', $videogame) }}" method="POST">
+                    {{-- <form action="{{ route('admin.videogames.destroy', $videogame) }}" method="POST">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-danger">Elimina {{ $videogame->name }}</button>
@@ -29,4 +29,4 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
