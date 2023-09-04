@@ -3,7 +3,7 @@ const videogameTitle = document.getElementById("videogame-title").innerText;
 
 deleteForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const proceed = confirm(`Do you really wan to delete ${videogameTitle}?`);
+    const proceed = confirm(`Do you really want to delete ${videogameTitle}?`);
 
     if (proceed) deleteForm.submit();
 });

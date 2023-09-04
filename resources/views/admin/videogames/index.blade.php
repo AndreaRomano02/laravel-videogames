@@ -47,7 +47,7 @@
                             @csrf
                             @method('DELETE')
 
-                            <button class="btn btn-danger">
+                            <button type="submit" class="btn btn-danger">
                                 <i class="fas fa-trash me-2"></i>
                                 Elimina
                             </button>
@@ -61,6 +61,6 @@
 
 @section('scripts')
 
-@Vite('resources/js/confirm-delete.js')
+@vite('resources/js/confirm-delete.js')
 
 @endsection
