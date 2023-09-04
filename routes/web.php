@@ -24,6 +24,7 @@ Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function ()
 
   Route::get('/videogames/trash', [VideogameController::class, 'trash'])->name('videogames.trash');
   Route::patch('/videogames/{videogame}/restore', [VideogameController::class, 'restore'])->name('videogames.restore');
+  Route::delete('/videogames/{videogame}/drop', [VideogameController::class, 'drop'])->name('videogames.drop');
 
   Route::resource('videogames', VideogameController::class);
 });

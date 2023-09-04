@@ -21,7 +21,15 @@
                         Restore
                     </button>
                 </form>
-                <a href="#" class="btn btn-danger">Delete</a>
+
+                <form action="{{route('admin.videogames.drop', $videogame)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">
+                        Delete
+                    </button>
+                </form>
+                
             </li>
         @endforeach
     </ul>
