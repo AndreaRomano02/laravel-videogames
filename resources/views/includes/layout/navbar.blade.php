@@ -23,6 +23,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
                 </li>
+                @auth
+                <li>
+                    <a class="nav-link" href="{{ route('admin.videogames.index') }}">Videogame</a>
+                </li>
+                  @endauth
             </ul>
 
             <!-- Right Side Of Navbar -->
