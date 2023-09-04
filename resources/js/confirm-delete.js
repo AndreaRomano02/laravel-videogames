@@ -1,5 +1,5 @@
 const deleteForm = document.getElementById("delete-form");
-const comicTitle = document.getElementById("videogame-title").innerText;
+const videogameTitle = document.getElementById("videogame-title").innerText;
 
 deleteForm.addEventListener("submit", (e) => {
     e.preventDefault();
