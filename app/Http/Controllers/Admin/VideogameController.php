@@ -32,12 +32,14 @@ class VideogameController extends Controller
   public function store(Request $request)
   {
     $data = $request->all();
+    $data['is_explicit'] = $data['is_explicit'] ?? 0;
+    $data['slug'] = Str::slug($data['title'], '-');
 
     $videogame = new Videogame();
 
+
     $videogame->fill($data);
 
-    $videogame->slug = Str::slug($videogame->name, '-');
 
     $videogame->save();
     return to_route('admin.videogames.show', compact('videogame'))->with('alert-type', 'success')->with('alert-message', 'Videogame aggiunto con successo');;
@@ -65,6 +67,8 @@ class VideogameController extends Controller
   public function update(Request $request, Videogame $videogame)
   {
     $data = $request->all();
+    $data['is_explicit'] = $data['is_explicit'] ?? 0;
+
     $data['slug'] = Str::slug($data['title'], '-');
     $videogame->update($data);
 

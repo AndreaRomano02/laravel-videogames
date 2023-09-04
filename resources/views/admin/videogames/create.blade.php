@@ -58,19 +58,19 @@
             </div>
             <div class="col-6 d-flex align-items-center">
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="is_explicit"
-                        value="{{ old('is_explicit') }}">
-                    <label class="form-check-label" for="is_explicit">Adatto ai minori di 18 anni?</label>
+                  <label class="form-check-label" for="is_explicit">Explicit Content</label>
+                  <input type="checkbox"
+                      class="form-check-input" id="is_explicit" name="is_explicit" value="1">
                 </div>
+              </div>
             </div>
-        </div>
-
-    </form>
-    <hr>
-    <footer class="d-flex justify-content-between">
-        <a class="btn btn-secondary" href="{{ route('admin.videogames.index') }}">Torna alla lista</a>
-        <button class="btn btn-success">Crea</button>
-    </footer>
+            
+            <hr>
+            <footer class="d-flex justify-content-between">
+              <a class="btn btn-secondary" href="{{ route('admin.videogames.index') }}">Torna alla lista</a>
+              <button class="btn btn-success">Crea</button>
+            </footer>
+          </form>
 @endsection
 
 @section('scripts')

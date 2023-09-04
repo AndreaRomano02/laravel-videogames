@@ -17,7 +17,7 @@ return new class extends Migration
       $table->string('slug')->unique();
       $table->string('genre')->nullable();
       $table->string('image')->nullable();
-      $table->boolean('is_explicit');
+      $table->boolean('is_explicit')->nullable()->default(null);
       $table->text('description');
       $table->string('price');
       $table->timestamps();
