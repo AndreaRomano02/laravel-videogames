@@ -44,7 +44,7 @@
                         </a>
 
                         {{-- # Elimina --}}
-                        <form action="{{ route('admin.videogames.destroy', $videogame) }}" method="POST" class="delete-form" data-title="{{ $videogame->title }}">
+                        <form action="{{ route('admin.videogames.destroy', $videogame) }}" method="POST" class="delete-form" data-title="{{ $videogame->title }}" data-bs-toggle="modal" data-bs-target="#deleteModal">
                             @csrf
                             @method('DELETE')
 
@@ -58,6 +58,7 @@
             </div>
         @endforeach
     </div>
+    @include('includes.admin.delete-model')
 @endsection
 
 @section('scripts')
