@@ -45,9 +45,9 @@ class VideogameController extends Controller
   /**
    * Show the form for editing the specified resource.
    */
-  public function edit(Videogame $Videogame)
+  public function edit(Videogame $videogame)
   {
-    return view('admin.videogames.edit', compact('Videogame'));
+    return view('admin.videogames.edit', compact('videogame'));
   }
 
   /**
