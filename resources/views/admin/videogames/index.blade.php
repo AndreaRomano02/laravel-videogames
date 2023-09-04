@@ -12,6 +12,7 @@
     <header class="text-end mt-3">
 
         {{-- # Aggiungi --}}
+        <a href="{{ route('admin.videogames.trash')}}" class="btn btn-secondary">Cestino</a>
         <a href="{{ route('admin.videogames.create') }}" class="btn btn-success">Crea un Videogame</a>
     </header>
     <div class="row row-cols-3 ">

@@ -88,4 +88,33 @@ class VideogameController extends Controller
       ->with('alert-type', 'success')
       ->with('alert-message', "$videogameName successfully deleted");
   }
+
+  public function trash()
+  {
+    $videogames = Videogame::onlyTrashed()->get();
+    return view('admin.videogames.trash', compact('videogames'));
+  }
+
+  public function restore(String $id)
+  {
+    $videogame = Videogame::onlyTrashed()->findOrFail($id);
+    $videogame->restore();
+
+    return to_route('admin.videogames.trash');
+  }
+
+  public function drop(String $id)
+  {
+    $videogame = Videogame::onlyTrashed()->findOrFail($id);
+    $videogame->forceDelete();
+
+    return to_route('admin.videogames.trash');
+  }
+
+  public function dropAll()
+  {
+    Videogame::onlyTrashed()->forceDelete();
+
+    return to_route('admin.videogames.trash');
+  }
 }
