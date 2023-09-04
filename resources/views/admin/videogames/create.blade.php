@@ -58,23 +58,22 @@
             </div>
             <div class="col-6 d-flex align-items-center">
                 <div class="form-check form-switch">
-                  <label class="form-check-label" for="is_explicit">Explicit Content</label>
-                  <input type="checkbox"
-                      class="form-check-input" id="is_explicit" name="is_explicit" value="1">
+                    <label class="form-check-label" for="is_explicit">Explicit Content</label>
+                    <input type="checkbox" class="form-check-input" id="is_explicit" name="is_explicit" value="1">
                 </div>
-              </div>
             </div>
-            
-            <hr>
-            <footer class="d-flex justify-content-between">
-              <a class="btn btn-secondary" href="{{ route('admin.videogames.index') }}">Torna alla lista</a>
-              <button class="btn btn-success">Crea</button>
-            </footer>
-          </form>
+        </div>
+
+        <hr>
+        <footer class="d-flex justify-content-between">
+            <a class="btn btn-secondary" href="{{ route('admin.videogames.index') }}">Torna alla lista</a>
+            <button class="btn btn-success">Crea</button>
+        </footer>
+    </form>
 @endsection
 
 @section('scripts')
-    @Vite('resources/js/image-previewer.js')
+    @Vite('resources/js/image-prev.js')
     @Vite('resources/js/slug-gen.js')
 
 
