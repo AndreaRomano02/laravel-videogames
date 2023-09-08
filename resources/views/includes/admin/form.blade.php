@@ -79,9 +79,10 @@
                 <label for="publisher" class="form-label">Publisher</label>
                 <select id="publisher" class="form-select @error('publisher') is-invalid @enderror"
                     aria-label="Default select example" name="publisher_id">
-                    <option value="">Nessuna</option>
+                    <option>Nessuna</option>
                     @foreach ($publishers as $publisher)
-                        <option value="{{ $publisher->id }}">{{ $publisher->label }}</option>
+                        <option @if (old('publisher_id', $videogame->publisher_id) == $publisher->id) selected @endif value="{{ $publisher->id }}">
+                            {{ $publisher->label }}</option>
                     @endforeach
 
                 </select>

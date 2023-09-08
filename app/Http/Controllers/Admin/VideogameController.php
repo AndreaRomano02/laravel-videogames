@@ -44,6 +44,7 @@ class VideogameController extends Controller
         'title' => 'required|string|max:100|unique:videogames',
         'image' => 'nullable|url',
         'description' => 'required|string',
+        'publisher_id' => 'nullable|exists:publishers,id'
       ],
       [
         'title.required' => 'Il titolo è obbligatorio',
@@ -51,6 +52,8 @@ class VideogameController extends Controller
         'title.unique' => "Esiste già un videogame dal titolo '$request->title'",
         'description.required' => "La descrizione è obbligatoria",
         'image.url' => "L'url inserito non è valido",
+        'publisher_id.exists' => "L'editore è inesistente",
+
       ]
     );
 
