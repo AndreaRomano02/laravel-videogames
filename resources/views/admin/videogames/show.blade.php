@@ -26,6 +26,13 @@
             <div class="mt-2"><strong>Publisher: </strong>
                 {{ $videogame->publisher ? $videogame->publisher->label : '-' }}</div>
 
+            <p class="mt-2"><strong>Consoles: </strong>
+                @forelse ($videogame->consoles as $console)
+                    {{ $console->label }},
+                @empty -
+                @endforelse
+            </p>
+
         </div>
     </div>
 

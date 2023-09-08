@@ -30,7 +30,13 @@
                     <li>
                         <a class="nav-link" href="{{ route('admin.publishers.index') }}">Publishers</a>
                     </li>
-                @endauth
+             
+             
+                <li>
+                    <a class="nav-link" href="{{ route('admin.consoles.index') }}">Consoles</a>
+                </li>
+                  @endauth
+
             </ul>
 
             <!-- Right Side Of Navbar -->
