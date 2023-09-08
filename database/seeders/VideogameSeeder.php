@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Publisher;
 use App\Models\Videogame;
 use Illuminate\Support\Str;
 use Faker\Generator;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 
 class VideogameSeeder extends Seeder
 {
@@ -15,8 +17,14 @@ class VideogameSeeder extends Seeder
    */
   public function run(Generator $faker): void
   {
+
+    $publisher_ids = Publisher::pluck('id')->toArray();
+
+    $max = Publisher::count();
     for ($i = 0; $i < 20; $i++) {
       $videogame = new Videogame();
+      $videogame->publisher_id = Arr::random($publisher_ids);
+
       $videogame->title = $faker->text(25);
       $videogame->slug = Str::slug($videogame->title, '-');
       $videogame->genre = $faker->text(25);
