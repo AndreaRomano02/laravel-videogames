@@ -19,7 +19,6 @@ class PublisherSeeder extends Seeder
             $publisher = new Publisher();
             $publisher->label = $label;
             $publisher->color = $faker->hexColor();
-
             $publisher->save();
         }
     }
