@@ -12,7 +12,7 @@ class Videogame extends Model
 
   use SoftDeletes;
 
-  protected $fillable = ['title', 'slug', 'genre', 'image', 'is_explicit', 'description', 'price'];
+  protected $fillable = ['title', 'slug', 'genre', 'image', 'is_explicit', 'description', 'price', 'publisher_id'];
 
   public function publisher()
   {

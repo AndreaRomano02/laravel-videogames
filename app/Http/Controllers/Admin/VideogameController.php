@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Publisher;
 use App\Models\Videogame;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -27,7 +28,9 @@ class VideogameController extends Controller
   public function create()
   {
     $videogame = new Videogame();
-    return view('admin.videogames.create', compact('videogame'));
+    $publishers = Publisher::select('id', 'label')->get();
+
+    return view('admin.videogames.create', compact('videogame', 'publishers'));
   }
 
   /**
@@ -80,7 +83,9 @@ class VideogameController extends Controller
    */
   public function edit(Videogame $videogame)
   {
-    return view('admin.videogames.edit', compact('videogame'))->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
+    $publishers = Publisher::select('id', 'label')->get();
+
+    return view('admin.videogames.edit', compact('videogame', 'publishers'))->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
   }
 
   /**
