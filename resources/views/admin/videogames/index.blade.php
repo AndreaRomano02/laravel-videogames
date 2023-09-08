@@ -12,7 +12,7 @@
     <header class="text-end mt-3">
 
         {{-- # Aggiungi --}}
-        <a href="{{ route('admin.videogames.trash')}}" class="btn btn-secondary">Cestino</a>
+        <a href="{{ route('admin.videogames.trash') }}" class="btn btn-secondary">Cestino</a>
         <a href="{{ route('admin.videogames.create') }}" class="btn btn-success">Crea un Videogame</a>
     </header>
     <div class="row row-cols-3 ">
@@ -28,6 +28,7 @@
                     @if ($videogame->is_explicit)
                         <p><strong>Over 18+</strong><i class="ms-2 fas fa-ban text-danger"></i></p>
                     @endif
+                    <p><strong>Publisher: </strong> {{ $videogame->publisher ? $videogame->publisher->label : '-' }}</p>
 
                     <div class="d-flex align-items-center gap-2 justify-content-center">
 
@@ -44,7 +45,9 @@
                         </a>
 
                         {{-- # Elimina --}}
-                        <form action="{{ route('admin.videogames.destroy', $videogame) }}" method="POST" class="delete-form" data-title="{{ $videogame->title }}" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <form action="{{ route('admin.videogames.destroy', $videogame) }}" method="POST"
+                            class="delete-form" data-title="{{ $videogame->title }}" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal">
                             @csrf
                             @method('DELETE')
 
@@ -63,6 +66,6 @@
 
 @section('scripts')
 
-@vite('resources/js/confirm-delete.js')
+    @vite('resources/js/confirm-delete.js')
 
 @endsection
