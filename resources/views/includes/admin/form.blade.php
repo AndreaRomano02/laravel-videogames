@@ -4,7 +4,8 @@
         class="text-white bg-dark p-5 rounded mt-5" novalidate>
         @method('PUT')
     @else
-        <form method="POST" action="{{ route('admin.videogames.store') }}" class="text-white bg-dark p-5 rounded mt-5" novalidate>
+        <form method="POST" action="{{ route('admin.videogames.store') }}" class="text-white bg-dark p-5 rounded mt-5"
+            novalidate>
 @endif
 @csrf
 
@@ -17,9 +18,9 @@
             class="form-control @error('title') is-invalid @enderror" id="title" aria-describedby="titleHelp"
             name="title" required>
         <div class="form-text">Required</div>
-            <div class="invalid-feedback">
-              {{ $errors->first('title') }}
-            </div>
+        <div class="invalid-feedback">
+            {{ $errors->first('title') }}
+        </div>
     </div>
 
     {{-- # Slug --}}
@@ -36,9 +37,9 @@
         <label for="description" class="form-label">Description</label>
         <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"
             rows="10">{{ old('description', $videogame->description) }}</textarea>
-            <div class="invalid-feedback">
-              {{ $errors->first('description') }}
-            </div>
+        <div class="invalid-feedback">
+            {{ $errors->first('description') }}
+        </div>
     </div>
 
     {{-- # Image --}}
@@ -46,9 +47,9 @@
         <label for="image" class="form-label">Url dell'immagine</label>
         <input type="url"class="form-control @error('image') is-invalid @enderror" id="image" name="image"
             value="{{ old('image', $videogame->image) }}" placeholder="Insersisci un url valido">
-            <div class="invalid-feedback">
-              {{ $errors->first('image') }}
-            </div>
+        <div class="invalid-feedback">
+            {{ $errors->first('image') }}
+        </div>
     </div>
 
     {{-- # Image preview --}}
@@ -61,9 +62,9 @@
     <div class="col-8">
         @foreach ($consoles as $console)
             <div class="form-check form-check-inline mb-3">
-                <input class="form-check-input" type="checkbox" id="console-{{$console->id}}" value="{{$console->id}}" 
-                    @if(in_array($console->id, old('consoles', $console_videogame_ids ?? []))) checked @endif name="consoles[]">
-                <label class="form-check-label" for="console-{{$console->id}}">{{$console->label}}</label>
+                <input class="form-check-input" type="checkbox" id="console-{{ $console->id }}"
+                    value="{{ $console->id }}" @if (in_array($console->id, old('consoles', $console_videogame_ids ?? []))) checked @endif name="consoles[]">
+                <label class="form-check-label" for="console-{{ $console->id }}">{{ $console->label }}</label>
             </div>
         @endforeach
         <div class="invalid-feedback">
@@ -72,14 +73,33 @@
     </div>
 
     {{-- # Price --}}
-    <div class="mb-3  ">
+    <div class="mb-3 col-6">
         <label for="price" class="form-label">Price</label>
         <input value="{{ old('price', $videogame->price) }}" type="text"
             class="form-control @error('price') is-invalid @enderror" id="price" aria-describedby="priceHelp"
             name="price" required>
         <div class="form-text">Required</div>
         <div class="invalid-feedback">
-          {{ $errors->first('price') }}
+            {{ $errors->first('price') }}
+        </div>
+    </div>
+
+    <div class="col-6">
+        {{-- # Publisher --}}
+        <div class="mb-3  ">
+            <label for="publisher" class="form-label">Publisher</label>
+            <select id="publisher" class="form-select @error('publisher') is-invalid @enderror"
+                aria-label="Default select example" name="publisher_id">
+                <option>Nessuna</option>
+                @foreach ($publishers as $publisher)
+                    <option @if (old('publisher_id', $videogame->publisher_id) == $publisher->id) selected @endif value="{{ $publisher->id }}">
+                        {{ $publisher->label }}</option>
+                @endforeach
+
+            </select>
+            <div class="invalid-feedback">
+                {{ $errors->first('publisher') }}
+            </div>
         </div>
     </div>
 
