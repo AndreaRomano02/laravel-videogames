@@ -53,7 +53,7 @@ class PublisherController extends Controller
     {
 
 
-        return view('admin.publishers.edit', compact('publisher'))->with('alert-message', "'$publisher->title' edited successfully")->with('alert-type', 'success');
+        return view('admin.publishers.edit', compact('publisher'))->with('alert-message', "'$publisher->label' edited successfully")->with('alert-type', 'success');
     }
 
     /**
