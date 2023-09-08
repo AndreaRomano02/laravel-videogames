@@ -88,8 +88,10 @@ class ConsoleController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(string $id)
+  public function destroy(Console $console)
   {
-    Console::destroy($id);
+    $console->delete();
+
+    return to_route('admin.consoles.index', $console)->with('alert-message', "Console '$console->label' edited successfully")->with('alert-type', 'success');
   }
 }

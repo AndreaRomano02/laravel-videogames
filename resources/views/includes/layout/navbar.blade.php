@@ -27,6 +27,9 @@
                 <li>
                     <a class="nav-link" href="{{ route('admin.videogames.index') }}">Videogame</a>
                 </li>
+                <li>
+                    <a class="nav-link" href="{{ route('admin.consoles.index') }}">Consoles</a>
+                </li>
                   @endauth
             </ul>
 
