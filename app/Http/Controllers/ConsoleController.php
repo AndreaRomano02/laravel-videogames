@@ -31,19 +31,22 @@ class ConsoleController extends Controller
    */
   public function store(Request $request)
   {
+    $request->validate(
+        [
 
-
-    $data = $request->all();
-
-    $console = new Console();
-
-    $console->fill($data);
-
-    $console->save();
-
-    return to_route('admin.consoles.show', compact('console'))->with('alert-type', 'success')->with('alert-message', 'Console aggiunta con successo');
+        ],
+        [
+            
+        ]
+        );
+ 
+        $data = $request->all();
+        $console = new Console();
+        $console->fill($data);
+        $console->save();
+        return to_route('admin.consoles.show', $console)->with('alert-type', 'success')->with('alert-message', 'Publisher aggiunto con successo');
+    }
     
-  }
 
   /**
    * Display the specified resource.
@@ -58,7 +61,7 @@ class ConsoleController extends Controller
    */
   public function edit(Console $console)
   {
-
+    return view('admin.consoles.edit', compact('console'))->with('alert-message', "Console '$console->label' edited successfully")->with('alert-type', 'success');
   }
 
   /**
@@ -66,14 +69,27 @@ class ConsoleController extends Controller
    */
   public function update(Request $request, Console $console)
   {
-   
+
+    $request->validate(
+        [
+          
+        ],
+        [
+         
+        ]
+      );
+
+    $data = $request->all();
+    $console->update($data);
+
+    return to_route('admin.consoles.show', $console)->with('alert-message', "Console '$console->label' edited successfully")->with('alert-type', 'success');
   }
 
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(Console $console)
+  public function destroy(string $id)
   {
-    
+    Console::destroy($id);
   }
 }

@@ -1,7 +1,7 @@
 
 @if ($console->exists)
     <h1 class="text-center mt-5">Edit console: {{ $console->label }}</h1>
-    <form method="POST" action="{{ route('admin.consoles.update', $videogame) }}"
+    <form method="POST" action="{{ route('admin.consoles.update', $console) }}"
         class="text-white bg-dark p-5 rounded mt-5" novalidate>
         @method('PUT')
     @else
@@ -19,7 +19,7 @@
     <div class="mb-3 mt-4">
       <label for="console-label" class="form-label">Label</label>
       <input value="{{ old('label', $console->label) }}" type="text" class="form-control" id="console-label" 
-        class="@error('label') is-invalid @enderror" name="console-label" required>
+        class="@error('label') is-invalid @enderror" name="label" required>
         <div class="form-text">Required</div>
         <div class="invalid-feedback">
             {{ $errors->first('label') }}
