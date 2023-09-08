@@ -32,6 +32,16 @@ class ConsoleController extends Controller
   public function store(Request $request)
   {
 
+
+    $data = $request->all();
+
+    $console = new Console();
+
+    $console->fill($data);
+
+    $console->save();
+
+    return to_route('admin.consoles.show', compact('console'))->with('alert-type', 'success')->with('alert-message', 'Console aggiunta con successo');
     
   }
 
@@ -40,7 +50,7 @@ class ConsoleController extends Controller
    */
   public function show(Console $console)
   {
-    
+    return view('admin.consoles.show', compact('console'));
   }
 
   /**
