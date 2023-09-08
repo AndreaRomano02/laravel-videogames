@@ -9,6 +9,8 @@ class Publisher extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['label', 'color'];
+
     public function videogame()
     {
         return $this->hasMany(Videogame::class);

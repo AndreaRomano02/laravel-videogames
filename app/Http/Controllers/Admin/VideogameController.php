@@ -81,7 +81,7 @@ class VideogameController extends Controller
 
     // Check if console exists
     if (array_key_exists('consoles', $data)) $videogame->consoles()->attach($data['consoles']);
-      
+
 
 
     return to_route('admin.videogames.show', compact('videogame'))->with('alert-type', 'success')->with('alert-message', 'Videogame aggiunto con successo');
@@ -105,7 +105,7 @@ class VideogameController extends Controller
     $console_videogame_ids = $videogame->consoles->pluck('id')->toArray();
     $publishers = Publisher::select('id', 'label')->get();
 
-    return view('admin.videogames.edit', compact('videogame','publishers','consoles', 'console_videogame_ids'))->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
+    return view('admin.videogames.edit', compact('videogame', 'publishers', 'consoles', 'console_videogame_ids'))->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
   }
 
   /**
@@ -137,7 +137,7 @@ class VideogameController extends Controller
     $videogame->update($data);
 
     // Delete or add console based on the database
-    if(!Arr::exists($data, 'consoles') && count($videogame->consoles)) $videogame->consoles()->detach();
+    if (!Arr::exists($data, 'consoles') && count($videogame->consoles)) $videogame->consoles()->detach();
     elseif (Arr::exists($data, 'consoles')) $videogame->consoles()->sync($data['consoles']);
 
     return to_route('admin.videogames.show', $videogame)->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
@@ -175,7 +175,7 @@ class VideogameController extends Controller
     $videogame = Videogame::onlyTrashed()->findOrFail($id);
     $videogame->forceDelete();
 
-    if(count($videogame->consoles)) $videogame->consoles()->detach();
+    if (count($videogame->consoles)) $videogame->consoles()->detach();
 
     return to_route('admin.videogames.trash')->with('alert-message', "Videogame dropped successfully")->with('alert-type', 'success');
   }
