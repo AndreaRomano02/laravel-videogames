@@ -9,7 +9,7 @@
 @endif
 @csrf
 
-<div class="row">
+<div class="row ">
     {{-- # Label --}}
     <div class="mb-3 col-6">
         <label for="label" class="form-label">Label</label>
@@ -21,5 +21,5 @@
             {{ $errors->first('label') }}
         </div>
     </div>
-
 </div>
+<button type="submit" class="btn btn-success">Submit</button>

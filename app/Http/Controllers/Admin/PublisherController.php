@@ -22,7 +22,8 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        return view('admin.publishers.create');
+        $publisher = new Publisher();
+        return view('admin.publishers.create', compact('publisher'));
     }
 
     /**
@@ -64,7 +65,7 @@ class PublisherController extends Controller
         $request->validate([], []);
         $data = $request->all();
         $publisher->update($data);
-        return to_route('admin.publishers.show', $publisher);
+        return to_route('admin.publishers.index', $publisher);
     }
 
 
@@ -74,6 +75,6 @@ class PublisherController extends Controller
     public function destroy(Publisher $publisher)
     {
         $publisher->delete();
-        return to_route('admin.publisher.index')->with('alert-message', "Publisher deleted")->with('alert-type', 'success');
+        return to_route('admin.publishers.index')->with('alert-message', "Publisher deleted")->with('alert-type', 'success');
     }
 }
