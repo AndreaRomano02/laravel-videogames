@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Admin\VideogameController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,8 @@ Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function ()
   Route::delete('/videogames/{videogame}/drop', [VideogameController::class, 'drop'])->name('videogames.drop');
 
   Route::resource('videogames', VideogameController::class);
+
+  Route::resource('publishers', PublisherController::class);
 });
 
 Route::middleware('auth')->group(function () {
