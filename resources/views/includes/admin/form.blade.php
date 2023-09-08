@@ -60,13 +60,15 @@
     {{-- Consoles --}}
     <div class="col-8">
         @foreach ($consoles as $console)
-            
             <div class="form-check form-check-inline mb-3">
                 <input class="form-check-input" type="checkbox" id="console-{{$console->id}}" value="{{$console->id}}" 
                     @if(in_array($console->id, old('consoles', $console_videogame_ids ?? []))) checked @endif name="consoles[]">
                 <label class="form-check-label" for="console-{{$console->id}}">{{$console->label}}</label>
             </div>
         @endforeach
+        <div class="invalid-feedback">
+            {{ $errors->first('consoles') }}
+        </div>
     </div>
 
     {{-- # Price --}}
