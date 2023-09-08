@@ -13,4 +13,9 @@ class Videogame extends Model
   use SoftDeletes;
 
   protected $fillable = ['title', 'slug', 'genre', 'image', 'is_explicit', 'description', 'price'];
+
+  public function consoles() 
+  {
+    return $this->belongsToMany(Console::class);
+  }
 }
