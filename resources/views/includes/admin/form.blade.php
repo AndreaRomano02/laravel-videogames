@@ -58,6 +58,31 @@
             alt="preview" class="img-fluid my-2" id="image-preview">
     </div>
 
+
+    {{-- Consoles --}}
+    <div class="col-8">
+        @foreach ($consoles as $console)
+            <div class="form-check form-check-inline mb-3">
+                <input class="form-check-input" type="checkbox" id="console-{{$console->id}}" value="{{$console->id}}" 
+                    @if(in_array($console->id, old('consoles', $console_videogame_ids ?? []))) checked @endif name="consoles[]">
+                <label class="form-check-label" for="console-{{$console->id}}">{{$console->label}}</label>
+            </div>
+        @endforeach
+        <div class="invalid-feedback">
+            {{ $errors->first('consoles') }}
+        </div>
+    </div>
+
+    {{-- # Price --}}
+    <div class="mb-3  ">
+        <label for="price" class="form-label">Price</label>
+        <input value="{{ old('price', $videogame->price) }}" type="text"
+            class="form-control @error('price') is-invalid @enderror" id="price" aria-describedby="priceHelp"
+            name="price" required>
+        <div class="form-text">Required</div>
+        <div class="invalid-feedback">
+          {{ $errors->first('price') }}
+
     <div class="row">
         <div class="col-6">
             {{-- # Price --}}
@@ -90,6 +115,7 @@
                     {{ $errors->first('publisher') }}
                 </div>
             </div>
+
         </div>
     </div>
 

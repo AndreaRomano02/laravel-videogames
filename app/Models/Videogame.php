@@ -12,10 +12,16 @@ class Videogame extends Model
 
   use SoftDeletes;
 
+  
   protected $fillable = ['title', 'slug', 'genre', 'image', 'is_explicit', 'description', 'price', 'publisher_id'];
+
+  public function consoles() 
+  {
+    return $this->belongsToMany(Console::class);
+  }
+
 
   public function publisher()
   {
     return $this->belongsTo(Publisher::class);
-  }
 }

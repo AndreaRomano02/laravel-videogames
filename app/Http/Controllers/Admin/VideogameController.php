@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+
+use App\Models\Console;
 use App\Http\Controllers\Controller;
 use App\Models\Publisher;
 use App\Models\Videogame;
-use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 
 
 
@@ -28,9 +32,11 @@ class VideogameController extends Controller
   public function create()
   {
     $videogame = new Videogame();
+
+    $consoles = Console::select('id', 'label')->get();
     $publishers = Publisher::select('id', 'label')->get();
 
-    return view('admin.videogames.create', compact('videogame', 'publishers'));
+    return view('admin.videogames.create', compact('videogame', 'publishers', 'consoles'))
   }
 
   /**
@@ -44,6 +50,7 @@ class VideogameController extends Controller
         'title' => 'required|string|max:100|unique:videogames',
         'image' => 'nullable|url',
         'description' => 'required|string',
+        'consoles' => 'nullable|exists:consoles,id'
         'publisher_id' => 'nullable|exists:publishers,id'
       ],
       [
@@ -52,6 +59,7 @@ class VideogameController extends Controller
         'title.unique' => "Esiste già un videogame dal titolo '$request->title'",
         'description.required' => "La descrizione è obbligatoria",
         'image.url' => "L'url inserito non è valido",
+        'consoles.exists' => "una o più console inserita non è valida"
         'publisher_id.exists' => "L'editore è inesistente",
 
       ]
@@ -66,10 +74,17 @@ class VideogameController extends Controller
     $videogame = new Videogame();
 
 
+
     $videogame->fill($data);
 
 
     $videogame->save();
+
+    // Check if console exists
+    if (array_key_exists('consoles', $data)) $videogame->consoles()->attach($data['consoles']);
+      
+
+
     return to_route('admin.videogames.show', compact('videogame'))->with('alert-type', 'success')->with('alert-message', 'Videogame aggiunto con successo');;
   }
 
@@ -86,9 +101,12 @@ class VideogameController extends Controller
    */
   public function edit(Videogame $videogame)
   {
+
+    $consoles = Console::select('id', 'label')->get();
+    $console_videogame_ids = $videogame->consoles->pluck('id')->toArray();
     $publishers = Publisher::select('id', 'label')->get();
 
-    return view('admin.videogames.edit', compact('videogame', 'publishers'))->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
+    return view('admin.videogames.edit', compact('videogame','publishers','consoles', 'console_videogame_ids'))->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
   }
 
   /**
@@ -101,6 +119,7 @@ class VideogameController extends Controller
         'title' => ['required', 'string', 'max:100', Rule::unique('videogames', 'title')->ignore($videogame)],
         'image' => 'nullable|url',
         'description' => 'required|string',
+        'consoles' => 'nullable|exists:consoles,id'
       ],
       [
         'title.required' => 'Il titolo è obbligatorio',
@@ -108,6 +127,7 @@ class VideogameController extends Controller
         'title.unique' => "Esiste già un videogame dal titolo $request->title",
         'description.required' => "La descrizione è obbligatoria",
         'image.url' => "L'url inserito non è valido",
+        'consoles.exists' => "una o più console inserita non è valida"
       ]
     );
 
@@ -116,6 +136,10 @@ class VideogameController extends Controller
 
     $data['slug'] = Str::slug($data['title'], '-');
     $videogame->update($data);
+
+    // Delete or add console based on the database
+    if(!Arr::exists($data, 'consoles') && count($videogame->consoles)) $videogame->consoles()->detach();
+    elseif (Arr::exists($data, 'consoles')) $videogame->consoles()->sync($data['consoles']);
 
     return to_route('admin.videogames.show', $videogame)->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
   }
@@ -152,12 +176,15 @@ class VideogameController extends Controller
     $videogame = Videogame::onlyTrashed()->findOrFail($id);
     $videogame->forceDelete();
 
+    if(count($videogame->consoles)) $videogame->consoles()->detach();
+
     return to_route('admin.videogames.trash')->with('alert-message', "Videogame dropped successfully")->with('alert-type', 'success');
   }
 
   public function dropAll()
   {
     Videogame::onlyTrashed()->forceDelete();
+
 
     return to_route('admin.videogames.trash')->with('alert-message', "Clear trash")->with('alert-type', 'success');
   }
