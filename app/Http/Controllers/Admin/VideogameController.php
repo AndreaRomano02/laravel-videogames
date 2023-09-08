@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Models\Console;
+use App\Http\Controllers\Controller;
+use App\Models\Publisher;
 use App\Models\Videogame;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -29,8 +32,11 @@ class VideogameController extends Controller
   public function create()
   {
     $videogame = new Videogame();
+
     $consoles = Console::select('id', 'label')->get();
-    return view('admin.videogames.create', compact('videogame', 'consoles'));
+    $publishers = Publisher::select('id', 'label')->get();
+
+    return view('admin.videogames.create', compact('videogame', 'publishers', 'consoles'))
   }
 
   /**
@@ -45,6 +51,7 @@ class VideogameController extends Controller
         'image' => 'nullable|url',
         'description' => 'required|string',
         'consoles' => 'nullable|exists:consoles,id'
+        'publisher_id' => 'nullable|exists:publishers,id'
       ],
       [
         'title.required' => 'Il titolo è obbligatorio',
@@ -53,6 +60,8 @@ class VideogameController extends Controller
         'description.required' => "La descrizione è obbligatoria",
         'image.url' => "L'url inserito non è valido",
         'consoles.exists' => "una o più console inserita non è valida"
+        'publisher_id.exists' => "L'editore è inesistente",
+
       ]
     );
 
@@ -95,8 +104,9 @@ class VideogameController extends Controller
 
     $consoles = Console::select('id', 'label')->get();
     $console_videogame_ids = $videogame->consoles->pluck('id')->toArray();
+    $publishers = Publisher::select('id', 'label')->get();
 
-    return view('admin.videogames.edit', compact('videogame', 'consoles', 'console_videogame_ids'))->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
+    return view('admin.videogames.edit', compact('videogame','publishers','consoles', 'console_videogame_ids'))->with('alert-message', "Videogame '$videogame->title' edited successfully")->with('alert-type', 'success');
   }
 
   /**
