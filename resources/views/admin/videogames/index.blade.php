@@ -29,7 +29,12 @@
                         <p><strong>Over 18+</strong><i class="ms-2 fas fa-ban text-danger"></i></p>
                     @endif
                     <p><strong>Publisher: </strong> {{ $videogame->publisher ? $videogame->publisher->label : '-' }}</p>
-
+                    <p class="mt-2"><strong>Consoles: </strong>
+                        @forelse ($videogame->consoles as $console)
+                            {{ $console->label }},
+                        @empty -
+                        @endforelse
+                    </p>
                     <div class="d-flex align-items-center gap-2 justify-content-center">
 
                         {{-- # Vedi --}}
