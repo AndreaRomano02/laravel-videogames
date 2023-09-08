@@ -36,7 +36,7 @@ class PublisherController extends Controller
         $publisher = new Publisher();
         $publisher->fill($data);
         $publisher->save();
-        return to_route('admin.publishers.show', $publisher)->with('alert-type', 'success')->with('alert-message', 'Publisher aggiunto con successo');
+        return to_route('admin.publishers.index', $publisher)->with('alert-type', 'success')->with('alert-message', 'Publisher aggiunto con successo');
     }
 
     /**
