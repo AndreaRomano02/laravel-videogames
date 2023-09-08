@@ -57,12 +57,14 @@
             alt="preview" class="img-fluid my-2" id="image-preview">
     </div>
 
+    {{-- Consoles --}}
     <div class="col-8">
         @foreach ($consoles as $console)
             
             <div class="form-check form-check-inline mb-3">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" @if(in_array($console->id, old('consoles', $console_videogame_ids ?? []))) checked @endif>
-                <label class="form-check-label" for="inlineCheckbox1">{{$console->label}}</label>
+                <input class="form-check-input" type="checkbox" id="console-{{$console->id}}" value="{{$console->id}}" 
+                    @if(in_array($console->id, old('consoles', $console_videogame_ids ?? []))) checked @endif name="consoles[]">
+                <label class="form-check-label" for="console-{{$console->id}}">{{$console->label}}</label>
             </div>
         @endforeach
     </div>
