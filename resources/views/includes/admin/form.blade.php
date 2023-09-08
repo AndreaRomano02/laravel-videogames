@@ -4,8 +4,7 @@
         class="text-white bg-dark p-5 rounded mt-5" novalidate>
         @method('PUT')
     @else
-        <form method="POST" action="{{ route('admin.videogames.store') }}" class="text-white bg-dark p-5 rounded mt-5"
-            novalidate>
+        <form method="POST" action="{{ route('admin.videogames.store') }}" class="text-white bg-dark p-5 rounded mt-5" novalidate>
 @endif
 @csrf
 
@@ -18,9 +17,9 @@
             class="form-control @error('title') is-invalid @enderror" id="title" aria-describedby="titleHelp"
             name="title" required>
         <div class="form-text">Required</div>
-        <div class="invalid-feedback">
-            {{ $errors->first('title') }}
-        </div>
+            <div class="invalid-feedback">
+              {{ $errors->first('title') }}
+            </div>
     </div>
 
     {{-- # Slug --}}
@@ -37,9 +36,9 @@
         <label for="description" class="form-label">Description</label>
         <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"
             rows="10">{{ old('description', $videogame->description) }}</textarea>
-        <div class="invalid-feedback">
-            {{ $errors->first('description') }}
-        </div>
+            <div class="invalid-feedback">
+              {{ $errors->first('description') }}
+            </div>
     </div>
 
     {{-- # Image --}}
@@ -47,9 +46,9 @@
         <label for="image" class="form-label">Url dell'immagine</label>
         <input type="url"class="form-control @error('image') is-invalid @enderror" id="image" name="image"
             value="{{ old('image', $videogame->image) }}" placeholder="Insersisci un url valido">
-        <div class="invalid-feedback">
-            {{ $errors->first('image') }}
-        </div>
+            <div class="invalid-feedback">
+              {{ $errors->first('image') }}
+            </div>
     </div>
 
     {{-- # Image preview --}}
@@ -57,7 +56,6 @@
         <img src="{{ old('image', 'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=') }}"
             alt="preview" class="img-fluid my-2" id="image-preview">
     </div>
-
 
     {{-- Consoles --}}
     <div class="col-8">
@@ -82,43 +80,8 @@
         <div class="form-text">Required</div>
         <div class="invalid-feedback">
           {{ $errors->first('price') }}
-
-    <div class="row">
-        <div class="col-6">
-            {{-- # Price --}}
-            <div class="mb-3  ">
-                <label for="price" class="form-label">Price</label>
-                <input value="{{ old('price', $videogame->price) }}" type="text"
-                    class="form-control @error('price') is-invalid @enderror" id="price"
-                    aria-describedby="priceHelp" name="price" required>
-                <div class="form-text">Required</div>
-                <div class="invalid-feedback">
-                    {{ $errors->first('price') }}
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6">
-            {{-- # Publisher --}}
-            <div class="mb-3  ">
-                <label for="publisher" class="form-label">Publisher</label>
-                <select id="publisher" class="form-select @error('publisher') is-invalid @enderror"
-                    aria-label="Default select example" name="publisher_id">
-                    <option>Nessuna</option>
-                    @foreach ($publishers as $publisher)
-                        <option @if (old('publisher_id', $videogame->publisher_id) == $publisher->id) selected @endif value="{{ $publisher->id }}">
-                            {{ $publisher->label }}</option>
-                    @endforeach
-
-                </select>
-                <div class="invalid-feedback">
-                    {{ $errors->first('publisher') }}
-                </div>
-            </div>
-
         </div>
     </div>
-
 
     {{-- # Explicit Content --}}
     <div class="mb-3 form-check">
