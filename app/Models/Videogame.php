@@ -25,3 +25,4 @@ class Videogame extends Model
   {
     return $this->belongsTo(Publisher::class);
 }
+}

@@ -11,7 +11,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Http\Controllers\Controller;
 
 
 
@@ -36,7 +35,7 @@ class VideogameController extends Controller
     $consoles = Console::select('id', 'label')->get();
     $publishers = Publisher::select('id', 'label')->get();
 
-    return view('admin.videogames.create', compact('videogame', 'publishers', 'consoles'))
+    return view('admin.videogames.create', compact('videogame', 'publishers', 'consoles'));
   }
 
   /**
@@ -50,7 +49,7 @@ class VideogameController extends Controller
         'title' => 'required|string|max:100|unique:videogames',
         'image' => 'nullable|url',
         'description' => 'required|string',
-        'consoles' => 'nullable|exists:consoles,id'
+        'consoles' => 'nullable|exists:consoles,id',
         'publisher_id' => 'nullable|exists:publishers,id'
       ],
       [
@@ -59,7 +58,7 @@ class VideogameController extends Controller
         'title.unique' => "Esiste già un videogame dal titolo '$request->title'",
         'description.required' => "La descrizione è obbligatoria",
         'image.url' => "L'url inserito non è valido",
-        'consoles.exists' => "una o più console inserita non è valida"
+        'consoles.exists' => "una o più console inserita non è valida",
         'publisher_id.exists' => "L'editore è inesistente",
 
       ]
